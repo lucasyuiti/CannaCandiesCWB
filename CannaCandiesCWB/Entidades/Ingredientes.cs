@@ -8,6 +8,7 @@ namespace CannaCandiesCWB.Entidades
 {
     public class Ingredientes
     {
+        public int IdIngrediente {  get; set; }
         public string NomeIngrediente {  get; set; }
         public double QuantidadeProduto { get; set; }
         public double ValorProduto { get; set; }

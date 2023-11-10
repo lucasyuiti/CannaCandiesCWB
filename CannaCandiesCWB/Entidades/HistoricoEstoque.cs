@@ -8,6 +8,7 @@ namespace CannaCandiesCWB.Entidades
 {
     public class HistoricoEstoque
     {
+        public int IdHistorico { get; set; }
         public Ingredientes ingrediente {  get; set; }
         public DateTime DataAlteracao { get; set; }
         public string Status {  get; set; }
