@@ -30,10 +30,8 @@
         {
             label1 = new Label();
             label2 = new Label();
-            button1 = new Button();
-            groupBox1 = new GroupBox();
-            button2 = new Button();
-            groupBox1.SuspendLayout();
+            BotaoEstoque = new Button();
+            BotaoReceitas = new Button();
             SuspendLayout();
             // 
             // label1
@@ -58,48 +56,38 @@
             label2.TabIndex = 1;
             label2.Text = "Titulo do app";
             // 
-            // button1
+            // BotaoEstoque
             // 
-            button1.Location = new Point(6, 201);
-            button1.Name = "button1";
-            button1.Size = new Size(371, 166);
-            button1.TabIndex = 2;
-            button1.Text = "Gerenciamento de receitas";
-            button1.UseVisualStyleBackColor = true;
+            BotaoEstoque.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            BotaoEstoque.Location = new Point(417, 259);
+            BotaoEstoque.Name = "BotaoEstoque";
+            BotaoEstoque.Size = new Size(371, 166);
+            BotaoEstoque.TabIndex = 2;
+            BotaoEstoque.Text = "Gerenciamento de estoque";
+            BotaoEstoque.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // BotaoReceitas
             // 
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(button1);
-            groupBox1.Location = new Point(12, 52);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(776, 373);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "groupBox1";
-            // 
-            // button2
-            // 
-            button2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            button2.Location = new Point(395, 201);
-            button2.Name = "button2";
-            button2.Size = new Size(375, 166);
-            button2.TabIndex = 3;
-            button2.Text = "Gerenciamento de receitas";
-            button2.UseVisualStyleBackColor = true;
+            BotaoReceitas.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            BotaoReceitas.Location = new Point(12, 259);
+            BotaoReceitas.Name = "BotaoReceitas";
+            BotaoReceitas.Size = new Size(375, 166);
+            BotaoReceitas.TabIndex = 3;
+            BotaoReceitas.Text = "Gerenciamento de receitas";
+            BotaoReceitas.UseVisualStyleBackColor = true;
             // 
             // Entrada
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Black;
+            BackColor = Color.DarkGreen;
             ClientSize = new Size(800, 450);
-            Controls.Add(groupBox1);
+            Controls.Add(BotaoReceitas);
+            Controls.Add(BotaoEstoque);
             Controls.Add(label1);
             Controls.Add(label2);
             Name = "Entrada";
             Text = "Form1";
-            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -108,8 +96,7 @@
 
         private Label label1;
         private Label label2;
-        private Button button1;
-        private GroupBox groupBox1;
-        private Button button2;
+        private Button BotaoEstoque;
+        private Button BotaoReceitas;
     }
 }

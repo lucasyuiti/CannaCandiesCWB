@@ -28,12 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "EstoqueIngredientes";
+            DbStatus = new StatusStrip();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            DbStatus.SuspendLayout();
+            SuspendLayout();
+            // 
+            // DbStatus
+            // 
+            DbStatus.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
+            DbStatus.Location = new Point(0, 621);
+            DbStatus.Name = "DbStatus";
+            DbStatus.Size = new Size(1224, 22);
+            DbStatus.TabIndex = 0;
+            DbStatus.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(118, 17);
+            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // EstoqueIngredientes
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.DarkGreen;
+            ClientSize = new Size(1224, 643);
+            Controls.Add(DbStatus);
+            Name = "EstoqueIngredientes";
+            Text = "EstoqueIngredientes";
+            FormClosing += FechandoEstoque;
+            Load += EstoqueLoad;
+            DbStatus.ResumeLayout(false);
+            DbStatus.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private StatusStrip DbStatus;
+        private ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
