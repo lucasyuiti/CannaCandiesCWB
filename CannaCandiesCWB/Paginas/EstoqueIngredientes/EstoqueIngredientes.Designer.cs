@@ -38,7 +38,7 @@
             lbConectado.AutoSize = true;
             lbConectado.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             lbConectado.ForeColor = Color.FromArgb(128, 255, 128);
-            lbConectado.Location = new Point(1065, 599);
+            lbConectado.Location = new Point(1053, 599);
             lbConectado.Name = "lbConectado";
             lbConectado.Size = new Size(159, 20);
             lbConectado.TabIndex = 1;
@@ -50,7 +50,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(1115, 619);
+            label2.Location = new Point(1103, 619);
             label2.Name = "label2";
             label2.Size = new Size(109, 15);
             label2.TabIndex = 2;
