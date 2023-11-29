@@ -19,29 +19,30 @@ namespace CannaCandiesCWB.Services
         public void Disconnect()
         {
             conn.Close();
+            //MessageBox.Show("Desconectado do banco de dados");
         }
-        public bool ConnectToDatabase()
+
+        public void ConnectToDatabase()
         {
             try
             {
-                conn = new SqlConnection();
-                conn.ConnectionString = @"Data Source=.\\SQLEXPRESS; AttachDbFilename =BancoDeDados.mdf; Integrated Security=True; Connect Timeout=50; User Instance=False";
+                var pathDB = "F:\\projetos\\OffBind\\CannaCandiesCWB\\CannaCandiesCWB\\CannaCandiesCWB\\Db\\BancoDeDados.mdf";
+                var connectionString = @$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={pathDB};Integrated Security=True";
+                conn = new SqlConnection(connectionString);
                 conn.Open();
-                MessageBox.Show("Conectado ao banco de dados");
-                conn.Close();
-                MessageBox.Show("Desconectado do banco de dados");
-                return true;
+                //MessageBox.Show("Conectado ao banco de dados");
+               
             }
             catch (SqlCeException e)
             {
                 conn.Close();
                 conn = null;
                 MessageBox.Show("Erro ao conectar ao Banco de dados \n\r " + e);
-                return false;
+
             }
         }
 
-        public bool AdicionarIngrediente(Ingredientes ingrediente)
+        public void AdicionarIngrediente(Ingredientes ingrediente)
         {
             try
             {
@@ -70,17 +71,14 @@ namespace CannaCandiesCWB.Services
 
                 cmd.Parameters.AddWithValue("@ValorUnidade", ingrediente.ValorUnidade);
                 cmd.Parameters.AddWithValue("@QuantidadeEstoque", ingrediente.QuantidadeEstoque);
-
-                return true;
             }
             catch (SqlCeException e)
             {
                 MessageBox.Show("Erro adicionar o ingrediente ao estoque");
-                return false;
             }
         }
 
-        public bool RemoverIngredienteEstoque(int id)
+        public void RemoverIngredienteEstoque(int id)
         {
             try
             {
@@ -89,14 +87,17 @@ namespace CannaCandiesCWB.Services
                 cmd.Connection = conn;
 
                 cmd.Parameters.AddWithValue("@id", id);
-
-                return true;
             }
             catch
             {
-                return false;
+                
             }
 
+        }
+
+        public bool CheckDBConnection()
+        {
+            return conn.State == ConnectionState.Open;
         }
 
         public bool ModificarHistoricoEstoque(HistoricoEstoque historico)

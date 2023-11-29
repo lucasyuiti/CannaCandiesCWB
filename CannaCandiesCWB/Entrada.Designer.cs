@@ -90,7 +90,7 @@
             Controls.Add(label1);
             Controls.Add(label2);
             Name = "Entrada";
-            Text = "Form1";
+            Text = "Gerenciador CCCWB";
             Load += OnLoad;
             ResumeLayout(false);
             PerformLayout();

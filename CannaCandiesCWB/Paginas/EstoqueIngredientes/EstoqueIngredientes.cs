@@ -13,24 +13,41 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
         public Ingredientes IngredienteSelecionado;
         public Form FormEntrada;
 
-        public ConexaoDB DbConn = new ConexaoDB();
+        public ConexaoDB DbConn;
         public bool conectado;
-        public EstoqueIngredientes(/*IServiceProvider serviceProvider,*/ Form formEntrada)
+        public EstoqueIngredientes(/*IServiceProvider serviceProvider,*/ Form formEntrada, ConexaoDB dbConn)
         {
             InitializeComponent();
             FormEntrada = formEntrada;
+            DbConn = dbConn;
             //_serviceProvider = serviceProvider;
         }
 
-        private void EstoqueLoad(object sender, EventArgs e)
+        private void OnLoad(object sender, EventArgs e)
         {
-            conectado = DbConn.ConnectToDatabase();
+            CheckarDBConection();
         }
 
-        private void FechandoEstoque(object sender, FormClosingEventArgs e)
+        public void CheckarDBConection()
         {
-            DbConn.Disconnect();
-            conectado = false;
+            conectado = DbConn.CheckDBConnection();
+
+            if (conectado)
+            {
+                lbConectado.Text = "Conectado ao estoque";
+                lbConectado.ForeColor = Color.Green;
+            }
+
+            else
+            {
+                lbConectado.Text = "Tentando conectar ao estoque...";
+                lbConectado.ForeColor = Color.Red;
+
+                DbConn.ConnectToDatabase();
+                CheckarDBConection();
+            }
+
+
         }
 
         public void Adicionar()
@@ -53,5 +70,7 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
             Show();
             FormEntrada.Show();
         }
+
+
     }
 }
