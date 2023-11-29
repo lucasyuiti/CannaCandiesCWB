@@ -10,9 +10,11 @@ namespace CannaCandiesCWB.Entidades
     {
         public int IdIngrediente {  get; set; }
         public string NomeIngrediente {  get; set; }
-        public double QuantidadeProduto { get; set; }
-        public double ValorProduto { get; set; }
-        public double QuantidadePeso { get; set; }
-        public double ValorPeso { get; set;}
+        public double QuantidadeEstoque { get; set; }
+        public string UnidadeEstoque { get; set; }
+        public double ValorUnidade { get; set; }
+        public double QuantidadeCompra { get; set; }
+        public string UnidadeCompra { get; set; }
+        public double ValorCompra { get; set;}
     }
 }

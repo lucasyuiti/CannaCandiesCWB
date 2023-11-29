@@ -39,7 +39,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(679, 428);
+            label1.Location = new Point(763, 387);
             label1.Name = "label1";
             label1.Size = new Size(109, 15);
             label1.TabIndex = 0;
@@ -50,7 +50,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(313, 9);
+            label2.Location = new Point(359, 9);
             label2.Name = "label2";
             label2.Size = new Size(157, 32);
             label2.TabIndex = 1;
@@ -58,36 +58,40 @@
             // 
             // BotaoEstoque
             // 
+            BotaoEstoque.BackgroundImageLayout = ImageLayout.None;
             BotaoEstoque.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            BotaoEstoque.Location = new Point(417, 259);
+            BotaoEstoque.Location = new Point(501, 218);
             BotaoEstoque.Name = "BotaoEstoque";
             BotaoEstoque.Size = new Size(371, 166);
             BotaoEstoque.TabIndex = 2;
             BotaoEstoque.Text = "Gerenciamento de estoque";
             BotaoEstoque.UseVisualStyleBackColor = true;
+            BotaoEstoque.Click += BotaoEstoque_Click;
             // 
             // BotaoReceitas
             // 
             BotaoReceitas.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            BotaoReceitas.Location = new Point(12, 259);
+            BotaoReceitas.Location = new Point(12, 218);
             BotaoReceitas.Name = "BotaoReceitas";
             BotaoReceitas.Size = new Size(375, 166);
             BotaoReceitas.TabIndex = 3;
             BotaoReceitas.Text = "Gerenciamento de receitas";
             BotaoReceitas.UseVisualStyleBackColor = true;
+            BotaoReceitas.Click += BotaoReceitas_Click;
             // 
             // Entrada
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.DarkGreen;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.FromArgb(64, 64, 64);
+            ClientSize = new Size(884, 411);
             Controls.Add(BotaoReceitas);
             Controls.Add(BotaoEstoque);
             Controls.Add(label1);
             Controls.Add(label2);
             Name = "Entrada";
             Text = "Form1";
+            Load += OnLoad;
             ResumeLayout(false);
             PerformLayout();
         }

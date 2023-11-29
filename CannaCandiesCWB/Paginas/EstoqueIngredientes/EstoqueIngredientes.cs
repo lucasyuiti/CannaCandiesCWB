@@ -1,33 +1,57 @@
-﻿using CannaCandiesCWB.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿
+
+using CannaCandiesCWB.Entidades;
+using CannaCandiesCWB.Paginas.EstoqueIngredientes.EditarEstoque;
+using CannaCandiesCWB.Services;
 
 namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
 {
     public partial class EstoqueIngredientes : Form
     {
+        private readonly IServiceProvider _serviceProvider;
+        public List<Ingredientes> Ingredientes;
+        public Ingredientes IngredienteSelecionado;
+        public Form FormEntrada;
+
         public ConexaoDB DbConn = new ConexaoDB();
-        public EstoqueIngredientes()
+        public bool conectado;
+        public EstoqueIngredientes(/*IServiceProvider serviceProvider,*/ Form formEntrada)
         {
             InitializeComponent();
+            FormEntrada = formEntrada;
+            //_serviceProvider = serviceProvider;
         }
 
         private void EstoqueLoad(object sender, EventArgs e)
         {
-            DbStatus.Items[0].Text = DbConn.ConnectToDatabase();
+            conectado = DbConn.ConnectToDatabase();
         }
 
         private void FechandoEstoque(object sender, FormClosingEventArgs e)
         {
             DbConn.Disconnect();
+            conectado = false;
+        }
+
+        public void Adicionar()
+        {
+            var form = new AdicionarIngrediente();
+        }
+
+        public void Remover()
+        {
+            //DbConn
+        }
+
+        public void Editar()
+        {
+            var form = new EditarIngrediente(IngredienteSelecionado);
+        }
+
+        private void ShowForm(object? sender, FormClosedEventArgs e)
+        {
+            Show();
+            FormEntrada.Show();
         }
     }
 }
