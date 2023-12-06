@@ -1,7 +1,7 @@
 ﻿
 
 using CannaCandiesCWB.Entidades;
-using CannaCandiesCWB.Paginas.EstoqueIngredientes.EditarEstoque;
+using CannaCandiesCWB.Paginas.EstoqueIngredientes;
 using CannaCandiesCWB.Services;
 
 namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
@@ -12,6 +12,7 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
         public List<Ingredientes> Ingredientes;
         public List<Ingredientes> IngredientesFiltrados;
         public Ingredientes IngredienteSelecionado = new Ingredientes();
+        public HistoricoEstoque historicoEstoque = new HistoricoEstoque();
         public Form FormEntrada;
 
         public ConexaoDB DbConn;
@@ -34,7 +35,7 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
 
         public void PegarEstoqueDb()
         {
-            Ingredientes = DbConn.PuxarIngredientesEstoque();
+            Ingredientes = DbConn.GetIngredientesEstoque();
         }
 
         public void filtrarIngredientes()
@@ -144,8 +145,13 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
         private void AdicionarIngrediente(object sender, EventArgs e)
         {
             IngredienteSelecionado.IdIngrediente = Ingredientes.Count + 1;
+
+            PrepararHistorico(true, "Adicionando");
             SalvarValorIngrediente();
-            DbConn.AdicionarIngrediente(IngredienteSelecionado);
+            PrepararHistorico(false, "Adicionando");
+
+            DbConn.AdicionarIngredienteEstoque(IngredienteSelecionado);
+            DbConn.AdicionarHistoricoEstoque(historicoEstoque);
 
             PegarEstoqueDb();
             filtrarIngredientes();
@@ -154,8 +160,12 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
 
         private void AtualizarIngrediente(object sender, EventArgs e)
         {
+            PrepararHistorico(true, "Atualizacao");
             SalvarValorIngrediente();
+            PrepararHistorico(false, "Atualizacao");
+
             DbConn.AtualizarIngrediente(IngredienteSelecionado);
+            DbConn.AdicionarHistoricoEstoque(historicoEstoque);
 
             PegarEstoqueDb();
             filtrarIngredientes();
@@ -175,12 +185,49 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
 
         private void CalcularValorUnidade()
         {
-            txtBoxIngredienteSelecionadoValorUnidade.Text = (decimal.Parse(txtBoxIngredienteSelecionadoValorCompra.Text) / decimal.Parse(txtBoxIngredienteSelecionadoQuantidadeCompra.Text)).ToString();
+            var UnidadeCompra = txtBoxIngredienteSelecionadoUnidadeCompra.Text;
+            var UnidadeEstoque = txtBoxIngredienteSelecionadoUnidadeEstoque.Text;
+            decimal valorCompra = 0;
+            decimal QuantidadeCompra = decimal.Parse(txtBoxIngredienteSelecionadoQuantidadeCompra.Text);
+
+            if (txtBoxIngredienteSelecionadoValorCompra.Text != "")
+                valorCompra = decimal.Parse(txtBoxIngredienteSelecionadoValorCompra.Text);
+
+
+
+
+            if ((UnidadeCompra.ToUpper() == "L" && UnidadeEstoque.ToUpper() == "ML") || (UnidadeCompra.ToUpper() == "KG" && UnidadeEstoque.ToUpper() == "G"))
+                txtBoxIngredienteSelecionadoValorUnidade.Text = ((valorCompra / QuantidadeCompra) / 1000).ToString();
+            else
+            {
+
+                if ((UnidadeCompra.ToUpper() == "ML" && UnidadeEstoque.ToUpper() == "L") || (UnidadeCompra.ToUpper() == "G" && UnidadeEstoque.ToUpper() == "KG"))
+                    txtBoxIngredienteSelecionadoValorUnidade.Text = ((valorCompra / QuantidadeCompra) * 1000).ToString();
+                else
+                    txtBoxIngredienteSelecionadoValorUnidade.Text = (valorCompra / QuantidadeCompra).ToString();
+            }
         }
 
         private void PreencherValorCompra(object sender, EventArgs e)
         {
             CalcularValorUnidade();
+        }
+
+        private void PrepararHistorico(bool Preencherhistorico, string mudanca)
+        {
+            if (Preencherhistorico)
+            {
+                var quantidadeLogs = DbConn.GetHistoricosEstoque().Count() + 1;
+                historicoEstoque.IngredienteAntes = ($"{IngredienteSelecionado.IdIngrediente}, {IngredienteSelecionado.NomeIngrediente},  {IngredienteSelecionado.QuantidadeEstoque},  {IngredienteSelecionado.UnidadeEstoque},  {IngredienteSelecionado.ValorUnidade},  {IngredienteSelecionado.QuantidadeCompra},  {IngredienteSelecionado.UnidadeCompra},  {IngredienteSelecionado.ValorCompra}");
+                historicoEstoque.IdHistorico = quantidadeLogs;
+                historicoEstoque.NomeIngredienteAlterado = IngredienteSelecionado.NomeIngrediente;
+                historicoEstoque.DataAlteracao = DateTime.Now;
+                historicoEstoque.IdIngredienteAlterado = IngredienteSelecionado.IdIngrediente;
+                historicoEstoque.Mudanca = mudanca;
+            }
+            else
+                historicoEstoque.IngredienteAtual = ($"{IngredienteSelecionado.IdIngrediente}, {IngredienteSelecionado.NomeIngrediente},  {IngredienteSelecionado.QuantidadeEstoque},  {IngredienteSelecionado.UnidadeEstoque},  {IngredienteSelecionado.ValorUnidade},  {IngredienteSelecionado.QuantidadeCompra},  {IngredienteSelecionado.UnidadeCompra},  {IngredienteSelecionado.ValorCompra}");
+
         }
     }
 }

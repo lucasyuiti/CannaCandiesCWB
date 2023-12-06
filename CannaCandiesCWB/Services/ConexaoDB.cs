@@ -44,7 +44,7 @@ namespace CannaCandiesCWB.Services
             }
         }
 
-        public List<Ingredientes> PuxarIngredientesEstoque()
+        public List<Ingredientes> GetIngredientesEstoque()
         {
             var listaIngredientes = new List<Ingredientes>();
 
@@ -61,10 +61,10 @@ namespace CannaCandiesCWB.Services
                         UnidadeEstoque = reader["UnidadeEstoque"].ToString(),
                         ValorUnidade = reader["ValorUnidade"] == DBNull.Value ? 0 : decimal.Parse(reader["ValorUnidade"].ToString()),
                         QuantidadeCompra = reader["QuantidadeCompra"] == DBNull.Value ? 0 : decimal.Parse(reader["QuantidadeCompra"].ToString()),
-                        UnidadeCompra = reader["UnidadeCompra"] == DBNull.Value ?  "Não Informado" : reader["UnidadeCompra"].ToString(),
+                        UnidadeCompra = reader["UnidadeCompra"] == DBNull.Value ? "Não Informado" : reader["UnidadeCompra"].ToString(),
                         ValorCompra = reader["ValorCompra"] == DBNull.Value ? 0 : decimal.Parse(reader["ValorCompra"].ToString())
-                    }) ;
-                } 
+                    });
+                }
             }
 
 
@@ -102,24 +102,24 @@ namespace CannaCandiesCWB.Services
             {
                 cmd.Parameters.AddWithValue("@QuantidadeCompra", ingrediente.QuantidadeCompra);
                 cmd.Parameters.AddWithValue("@UnidadeCompra", ingrediente.UnidadeCompra);
-                cmd.Parameters.AddWithValue("@ValorCompra", ingrediente.ValorCompra);
+                cmd.Parameters.AddWithValue("@ValorCompra", ingrediente.ValorCompra.ToString());
             }
             else { throw new Exception("Quantidade, Unidade e Valor de compra não podem ser vazio"); }
 
 
-            cmd.Parameters.AddWithValue("@ValorUnidade", ingrediente.ValorUnidade);
+            cmd.Parameters.AddWithValue("@ValorUnidade", ingrediente.ValorUnidade.ToString());
             cmd.Parameters.AddWithValue("@QuantidadeEstoque", ingrediente.QuantidadeEstoque);
 
             cmd.ExecuteNonQuery();
         }
 
-        public void AdicionarIngrediente(Ingredientes ingrediente)
+        public void AdicionarIngredienteEstoque(Ingredientes ingrediente)
         {
             try
             {
-               string query = "INSERT INTO Estoque " +
-                           "(Id, NomeIngrediente, QuantidadeEstoque, UnidadeEstoque, ValorUnidade, QuantidadeCompra, UnidadeCompra, ValorCompra) " +
-                    "VALUES (@Id, @NomeIngrediente, @QuantidadeEstoque, @UnidadeEstoque, @ValorUnidade, @QuantidadeCompra, @UnidadeCompra, @ValorCompra)";
+                string query = "INSERT INTO Estoque " +
+                            "(Id, NomeIngrediente, QuantidadeEstoque, UnidadeEstoque, ValorUnidade, QuantidadeCompra, UnidadeCompra, ValorCompra) " +
+                     "VALUES (@Id, @NomeIngrediente, @QuantidadeEstoque, @UnidadeEstoque, @ValorUnidade, @QuantidadeCompra, @UnidadeCompra, @ValorCompra)";
 
                 cmd = new SqlCommand(query, conn);
 
@@ -139,13 +139,15 @@ namespace CannaCandiesCWB.Services
                 {
                     cmd.Parameters.AddWithValue("@QuantidadeCompra", ingrediente.QuantidadeCompra);
                     cmd.Parameters.AddWithValue("@UnidadeCompra", ingrediente.UnidadeCompra);
-                    cmd.Parameters.AddWithValue("@ValorCompra", ingrediente.ValorCompra);
+                    cmd.Parameters.AddWithValue("@ValorCompra", ingrediente.ValorCompra.ToString());
                 }
                 else { throw new Exception("Quantidade, Unidade e Valor de compra não podem ser vazio"); }
 
 
-                cmd.Parameters.AddWithValue("@ValorUnidade", ingrediente.ValorUnidade);
+                cmd.Parameters.AddWithValue("@ValorUnidade", ingrediente.ValorUnidade.ToString());
                 cmd.Parameters.AddWithValue("@QuantidadeEstoque", ingrediente.QuantidadeEstoque);
+
+
 
                 cmd.ExecuteNonQuery();
             }
@@ -176,15 +178,59 @@ namespace CannaCandiesCWB.Services
             return conn.State == ConnectionState.Open;
         }
 
-        public bool ModificarHistoricoEstoque(HistoricoEstoque historico)
+        public List<HistoricoEstoque> GetHistoricosEstoque()
+        {
+            var listaHistoricosEstoque = new List<HistoricoEstoque>();
+
+            cmd = new SqlCommand("Select * from HistoricoMudancas", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    listaHistoricosEstoque.Add(new HistoricoEstoque()
+                    {
+                        IdHistorico = (int)reader["Id"],
+                        IdIngredienteAlterado = (int)reader["IdIngredienteAlterado"],
+                        NomeIngredienteAlterado = reader["NomeIngredienteAlterado"].ToString(),
+                        DataAlteracao = DateTime.Parse(reader["DataAlteracao"].ToString()),
+                        IngredienteAntes = reader["IngredienteAntes"].ToString(),
+                        IngredienteAtual = reader["IngredienteDepois"].ToString(),
+                    });
+                }
+            }
+
+
+
+            return listaHistoricosEstoque;
+        }
+
+        public void AdicionarHistoricoEstoque(HistoricoEstoque historico)
         {
             try
             {
-                return true;
+                string query = "INSERT INTO HistoricoMudancas " +
+                          "(Id, IdIngredienteAlterado, NomeIngredienteAlterado, DataAlteracao, IngredienteAntes, IngredienteDepois) " +
+                   "VALUES (@Id, @IdIngredienteAlterado, @NomeIngredienteAlterado, @DataAlteracao, @IngredienteAntes, @IngredienteDepois)";
+
+                cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@Id", historico.IdHistorico);
+                cmd.Parameters.AddWithValue("@IdIngredienteAlterado", historico.IdIngredienteAlterado);
+
+                if (historico.NomeIngredienteAlterado != null)
+                    cmd.Parameters.AddWithValue("@NomeIngredienteAlterado", historico.NomeIngredienteAlterado);
+                else { throw new Exception("É preciso informar o nome do ingrediente"); }
+
+                cmd.Parameters.AddWithValue("@DataAlteracao", historico.DataAlteracao);
+
+                cmd.Parameters.AddWithValue("@IngredienteAntes", historico.IngredienteAntes);
+                cmd.Parameters.AddWithValue("@IngredienteDepois", historico.IngredienteAtual);
+
+                cmd.ExecuteNonQuery();
             }
             catch
             {
-                return false;
+                MessageBox.Show("Erro ao adicionar a mudança ao log de histórico");
             }
         }
     }

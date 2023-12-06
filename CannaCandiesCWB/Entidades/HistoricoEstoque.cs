@@ -9,9 +9,11 @@ namespace CannaCandiesCWB.Entidades
     public class HistoricoEstoque
     {
         public int IdHistorico { get; set; }
-        public Ingredientes ingrediente {  get; set; }
+        public int IdIngredienteAlterado { get; set; }
+        public string NomeIngredienteAlterado {  get; set; }
         public DateTime DataAlteracao { get; set; }
-        public string Status {  get; set; }
-        public double Quantidade { get; set; }
+        public string Mudanca {  get; set; }
+        public string IngredienteAtual { get; set; }
+        public string IngredienteAntes { get; set; }
     }
 }

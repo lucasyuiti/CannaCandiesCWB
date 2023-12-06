@@ -1,6 +1,6 @@
-﻿namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
+﻿namespace CannaCandiesCWB.Paginas.ListaReceitas
 {
-    partial class EstoqueIngredientes
+    partial class ListaReceitas
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lbConectado = new Label();
-            label2 = new Label();
-            label1 = new Label();
             gBoxEstoque = new GroupBox();
+            button1 = new Button();
             lblFiltroNome = new Label();
             lblFiltro = new Label();
             txtBoxFiltroNome = new TextBox();
@@ -45,6 +43,9 @@
             clnQuantidadeCompra = new ColumnHeader();
             clnUnidadeCompra = new ColumnHeader();
             clnValorCompra = new ColumnHeader();
+            label2 = new Label();
+            lbConectado = new Label();
+            label1 = new Label();
             gBoxCriacaoEdicao = new GroupBox();
             panel1 = new Panel();
             btnAdicionarIngrediente = new Button();
@@ -70,55 +71,34 @@
             panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // lbConectado
-            // 
-            lbConectado.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lbConectado.AutoSize = true;
-            lbConectado.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lbConectado.ForeColor = Color.FromArgb(128, 255, 128);
-            lbConectado.Location = new Point(1053, 603);
-            lbConectado.Name = "lbConectado";
-            lbConectado.Size = new Size(159, 20);
-            lbConectado.TabIndex = 1;
-            lbConectado.Text = "Conectado ao estoque";
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(12, 607);
-            label2.Name = "label2";
-            label2.Size = new Size(109, 15);
-            label2.TabIndex = 2;
-            label2.Text = "CannaCandiesCWB";
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(322, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(324, 40);
-            label1.TabIndex = 3;
-            label1.Text = "Estoque de ingredientes";
-            // 
             // gBoxEstoque
             // 
             gBoxEstoque.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            gBoxEstoque.Controls.Add(button1);
             gBoxEstoque.Controls.Add(lblFiltroNome);
             gBoxEstoque.Controls.Add(lblFiltro);
             gBoxEstoque.Controls.Add(txtBoxFiltroNome);
             gBoxEstoque.Controls.Add(btnPesquisa);
             gBoxEstoque.Controls.Add(lvEstoque);
-            gBoxEstoque.Location = new Point(12, 52);
+            gBoxEstoque.Location = new Point(12, 55);
             gBoxEstoque.Name = "gBoxEstoque";
             gBoxEstoque.Size = new Size(899, 548);
-            gBoxEstoque.TabIndex = 4;
+            gBoxEstoque.TabIndex = 5;
             gBoxEstoque.TabStop = false;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.BackColor = Color.Green;
+            button1.BackgroundImageLayout = ImageLayout.Center;
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(761, 77);
+            button1.Name = "button1";
+            button1.Size = new Size(132, 34);
+            button1.TabIndex = 9;
+            button1.Text = "Pesquisar";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += PesquisarReceita;
             // 
             // lblFiltroNome
             // 
@@ -157,13 +137,12 @@
             btnPesquisa.BackColor = Color.Green;
             btnPesquisa.BackgroundImageLayout = ImageLayout.Center;
             btnPesquisa.ForeColor = Color.White;
-            btnPesquisa.Location = new Point(761, 75);
+            btnPesquisa.Location = new Point(1460, 75);
             btnPesquisa.Name = "btnPesquisa";
             btnPesquisa.Size = new Size(132, 34);
             btnPesquisa.TabIndex = 7;
             btnPesquisa.Text = "Pesquisar";
             btnPesquisa.UseVisualStyleBackColor = false;
-            btnPesquisa.Click += PesquisarIngrediente;
             // 
             // lvEstoque
             // 
@@ -176,7 +155,6 @@
             lvEstoque.TabIndex = 0;
             lvEstoque.UseCompatibleStateImageBehavior = false;
             lvEstoque.View = View.Details;
-            lvEstoque.SelectedIndexChanged += CarregarIngredienteSelecionado;
             // 
             // clnId
             // 
@@ -220,15 +198,51 @@
             clnValorCompra.Text = "Valor por Compra";
             clnValorCompra.Width = 110;
             // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(12, 606);
+            label2.Name = "label2";
+            label2.Size = new Size(109, 15);
+            label2.TabIndex = 10;
+            label2.Text = "CannaCandiesCWB";
+            // 
+            // lbConectado
+            // 
+            lbConectado.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lbConectado.AutoSize = true;
+            lbConectado.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lbConectado.ForeColor = Color.FromArgb(128, 255, 128);
+            lbConectado.Location = new Point(1053, 602);
+            lbConectado.Name = "lbConectado";
+            lbConectado.Size = new Size(159, 20);
+            lbConectado.TabIndex = 9;
+            lbConectado.Text = "Conectado ao estoque";
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(375, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(178, 40);
+            label1.TabIndex = 11;
+            label1.Text = "ListaReceitas";
+            // 
             // gBoxCriacaoEdicao
             // 
             gBoxCriacaoEdicao.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             gBoxCriacaoEdicao.Controls.Add(panel1);
             gBoxCriacaoEdicao.Controls.Add(label3);
-            gBoxCriacaoEdicao.Location = new Point(917, 52);
+            gBoxCriacaoEdicao.Location = new Point(917, 55);
             gBoxCriacaoEdicao.Name = "gBoxCriacaoEdicao";
             gBoxCriacaoEdicao.Size = new Size(295, 548);
-            gBoxCriacaoEdicao.TabIndex = 5;
+            gBoxCriacaoEdicao.TabIndex = 12;
             gBoxCriacaoEdicao.TabStop = false;
             // 
             // panel1
@@ -252,7 +266,7 @@
             panel1.Controls.Add(btnSalvarIngrediente);
             panel1.Controls.Add(txtBoxIngredienteSelecionadoNome);
             panel1.Controls.Add(txtBoxIngredienteSelecionadoQuantidadeEstoque);
-            panel1.Location = new Point(6, 63);
+            panel1.Location = new Point(6, 61);
             panel1.Name = "panel1";
             panel1.Size = new Size(283, 481);
             panel1.TabIndex = 7;
@@ -267,7 +281,6 @@
             btnAdicionarIngrediente.TabIndex = 17;
             btnAdicionarIngrediente.Text = "Adicionar";
             btnAdicionarIngrediente.UseVisualStyleBackColor = false;
-            btnAdicionarIngrediente.Click += AdicionarIngrediente;
             // 
             // label8
             // 
@@ -287,7 +300,6 @@
             txtBoxIngredienteSelecionadoValorCompra.Name = "txtBoxIngredienteSelecionadoValorCompra";
             txtBoxIngredienteSelecionadoValorCompra.Size = new Size(257, 39);
             txtBoxIngredienteSelecionadoValorCompra.TabIndex = 15;
-            txtBoxIngredienteSelecionadoValorCompra.TextChanged += PreencherValorCompra;
             // 
             // label7
             // 
@@ -377,7 +389,6 @@
             btnDeletarIngrediente.TabIndex = 6;
             btnDeletarIngrediente.Text = "Deletar";
             btnDeletarIngrediente.UseVisualStyleBackColor = false;
-            btnDeletarIngrediente.Click += DeletarIngrediente;
             // 
             // lblIngredienteSelecionadoNome
             // 
@@ -411,7 +422,6 @@
             btnSalvarIngrediente.TabIndex = 5;
             btnSalvarIngrediente.Text = "Salvar";
             btnSalvarIngrediente.UseVisualStyleBackColor = false;
-            btnSalvarIngrediente.Click += AtualizarIngrediente;
             // 
             // txtBoxIngredienteSelecionadoNome
             // 
@@ -441,19 +451,19 @@
             label3.TabIndex = 1;
             label3.Text = "Ingrediente";
             // 
-            // EstoqueIngredientes
+            // ListaReceitas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1224, 631);
             Controls.Add(gBoxCriacaoEdicao);
-            Controls.Add(gBoxEstoque);
             Controls.Add(label1);
             Controls.Add(label2);
+            Controls.Add(gBoxEstoque);
             Controls.Add(lbConectado);
-            Name = "EstoqueIngredientes";
-            Text = "Estoque";
+            Name = "ListaReceitas";
+            Text = "ListaReceitas";
             Load += OnLoad;
             gBoxEstoque.ResumeLayout(false);
             gBoxEstoque.PerformLayout();
@@ -466,19 +476,13 @@
         }
 
         #endregion
-        private Label label1;
-        private Label label2;
-        private Label lbConectado;
+
         private GroupBox gBoxEstoque;
+        private Label lblFiltroNome;
+        private Label lblFiltro;
+        private TextBox txtBoxFiltroNome;
+        private Button btnPesquisa;
         private ListView lvEstoque;
-        private GroupBox gBoxCriacaoEdicao;
-        private Label label3;
-        private TextBox txtBoxIngredienteSelecionadoNome;
-        private Button btnSalvarIngrediente;
-        private Label lblIngredienteSelecionadoQuantidadeEstoque;
-        private TextBox txtBoxIngredienteSelecionadoQuantidadeEstoque;
-        private Label lblIngredienteSelecionadoNome;
-        private Button btnDeletarIngrediente;
         private ColumnHeader clnId;
         private ColumnHeader clnNome;
         private ColumnHeader clnQuantidadeEstoque;
@@ -487,13 +491,14 @@
         private ColumnHeader clnQuantidadeCompra;
         private ColumnHeader clnUnidadeCompra;
         private ColumnHeader clnValorCompra;
-        private Button btnPesquisa;
-        private Label lblFiltroNome;
-        private Label lblFiltro;
-        private TextBox txtBoxFiltroNome;
+        private Label label2;
+        private Label lbConectado;
+        private Label label1;
+        private Button button1;
+        private GroupBox gBoxCriacaoEdicao;
         private Panel panel1;
-        private Label label4;
-        private TextBox txtBoxIngredienteSelecionadoUnidadeEstoque;
+        private Button btnAdicionarIngrediente;
+        private Label label8;
         private TextBox txtBoxIngredienteSelecionadoValorCompra;
         private Label label7;
         private TextBox txtBoxIngredienteSelecionadoUnidadeCompra;
@@ -501,7 +506,14 @@
         private TextBox txtBoxIngredienteSelecionadoQuantidadeCompra;
         private Label label5;
         private TextBox txtBoxIngredienteSelecionadoValorUnidade;
-        private Label label8;
-        private Button btnAdicionarIngrediente;
+        private Label label4;
+        private TextBox txtBoxIngredienteSelecionadoUnidadeEstoque;
+        private Button btnDeletarIngrediente;
+        private Label lblIngredienteSelecionadoNome;
+        private Label lblIngredienteSelecionadoQuantidadeEstoque;
+        private Button btnSalvarIngrediente;
+        private TextBox txtBoxIngredienteSelecionadoNome;
+        private TextBox txtBoxIngredienteSelecionadoQuantidadeEstoque;
+        private Label label3;
     }
 }
