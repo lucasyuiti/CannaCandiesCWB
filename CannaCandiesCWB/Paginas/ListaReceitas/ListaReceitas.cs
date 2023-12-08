@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CannaCandiesCWB.Entidades;
+using CannaCandiesCWB.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +14,26 @@ namespace CannaCandiesCWB.Paginas.ListaReceitas
 {
     public partial class ListaReceitas : Form
     {
-        public ListaReceitas()
+        public Form FormEntrada;
+        public ConexaoDB DbConn;
+        public bool conectado;
+
+        public List<Receitas> ListaReceitasDb;
+
+        public ListaReceitas(/*IServiceProvider serviceProvider,*/ Form formEntrada, ConexaoDB dbConn)
         {
             InitializeComponent();
+            DbConn = dbConn;
+            FormEntrada = formEntrada;
         }
         private void OnLoad(object sender, EventArgs e)
         {
+            PegarEstoqueDb();
+        }
 
+        public void PegarEstoqueDb()
+        {
+            ListaReceitasDb = DbConn.GetListaReceitas();
         }
 
         private void PesquisarReceita(object sender, EventArgs e)
@@ -26,6 +41,19 @@ namespace CannaCandiesCWB.Paginas.ListaReceitas
 
         }
 
-      
+        private void SalvarReceita(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AdicionarReceita(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeletarReceita(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

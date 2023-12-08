@@ -164,7 +164,7 @@ namespace CannaCandiesCWB.Paginas.EstoqueIngredientes
             SalvarValorIngrediente();
             PrepararHistorico(false, "Atualizacao");
 
-            DbConn.AtualizarIngrediente(IngredienteSelecionado);
+            DbConn.AtualizarIngredienteEstoque(IngredienteSelecionado);
             DbConn.AdicionarHistoricoEstoque(historicoEstoque);
 
             PegarEstoqueDb();

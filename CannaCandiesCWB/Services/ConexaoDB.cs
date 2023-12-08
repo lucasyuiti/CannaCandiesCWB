@@ -44,6 +44,32 @@ namespace CannaCandiesCWB.Services
             }
         }
 
+        public List<HistoricoEstoque> GetHistoricosEstoque()
+        {
+            var listaHistoricosEstoque = new List<HistoricoEstoque>();
+
+            cmd = new SqlCommand("Select * from HistoricoMudancas", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    listaHistoricosEstoque.Add(new HistoricoEstoque()
+                    {
+                        IdHistorico = (int)reader["Id"],
+                        IdIngredienteAlterado = (int)reader["IdIngredienteAlterado"],
+                        NomeIngredienteAlterado = reader["NomeIngredienteAlterado"].ToString(),
+                        DataAlteracao = DateTime.Parse(reader["DataAlteracao"].ToString()),
+                        IngredienteAntes = reader["IngredienteAntes"].ToString(),
+                        IngredienteAtual = reader["IngredienteDepois"].ToString(),
+                    });
+                }
+            }
+
+
+
+            return listaHistoricosEstoque;
+        }
+
         public List<Ingredientes> GetIngredientesEstoque()
         {
             var listaIngredientes = new List<Ingredientes>();
@@ -72,7 +98,7 @@ namespace CannaCandiesCWB.Services
             return listaIngredientes;
         }
 
-        public void AtualizarIngrediente(Ingredientes ingrediente)
+        public void AtualizarIngredienteEstoque(Ingredientes ingrediente)
         {
             string query = "UPDATE Estoque SET" +
                 " NomeIngrediente = @NomeIngrediente," +
@@ -178,31 +204,7 @@ namespace CannaCandiesCWB.Services
             return conn.State == ConnectionState.Open;
         }
 
-        public List<HistoricoEstoque> GetHistoricosEstoque()
-        {
-            var listaHistoricosEstoque = new List<HistoricoEstoque>();
 
-            cmd = new SqlCommand("Select * from HistoricoMudancas", conn);
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    listaHistoricosEstoque.Add(new HistoricoEstoque()
-                    {
-                        IdHistorico = (int)reader["Id"],
-                        IdIngredienteAlterado = (int)reader["IdIngredienteAlterado"],
-                        NomeIngredienteAlterado = reader["NomeIngredienteAlterado"].ToString(),
-                        DataAlteracao = DateTime.Parse(reader["DataAlteracao"].ToString()),
-                        IngredienteAntes = reader["IngredienteAntes"].ToString(),
-                        IngredienteAtual = reader["IngredienteDepois"].ToString(),
-                    });
-                }
-            }
-
-
-
-            return listaHistoricosEstoque;
-        }
 
         public void AdicionarHistoricoEstoque(HistoricoEstoque historico)
         {
@@ -232,6 +234,43 @@ namespace CannaCandiesCWB.Services
             {
                 MessageBox.Show("Erro ao adicionar a mudança ao log de histórico");
             }
+        }
+
+        public List<Receitas> GetListaReceitas()
+        {
+            var listaReceitas = new List<Receitas>();
+
+            cmd = new SqlCommand("Select * from Receitas", conn);
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    listaReceitas.Add(new Receitas()
+                    {
+                        IdReceitas = (int)reader["Id"],
+                        NomeReceita = reader["Nome"].ToString(),
+                        ValorReceita = decimal.Parse(reader["Valor"].ToString()),
+                        IngredientesId = reader["Ingredientes"].ToString()
+                    });
+                }
+            }
+
+            return listaReceitas;
+        }
+
+        public void AdicionarReceita()
+        {
+
+        }
+
+        public void EditarReceita()
+        {
+
+        }
+
+        public void DeletarReceita()
+        {
+
         }
     }
 }

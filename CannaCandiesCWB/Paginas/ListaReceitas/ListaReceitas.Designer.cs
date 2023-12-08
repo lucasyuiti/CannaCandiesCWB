@@ -36,36 +36,26 @@
             btnPesquisa = new Button();
             lvEstoque = new ListView();
             clnId = new ColumnHeader();
-            clnNome = new ColumnHeader();
-            clnQuantidadeEstoque = new ColumnHeader();
-            clnUnidadeEstoque = new ColumnHeader();
-            clnValorUnidade = new ColumnHeader();
-            clnQuantidadeCompra = new ColumnHeader();
-            clnUnidadeCompra = new ColumnHeader();
-            clnValorCompra = new ColumnHeader();
+            clnNomeReceita = new ColumnHeader();
+            clnValorReceita = new ColumnHeader();
             label2 = new Label();
             lbConectado = new Label();
             label1 = new Label();
             gBoxCriacaoEdicao = new GroupBox();
             panel1 = new Panel();
             btnAdicionarIngrediente = new Button();
-            label8 = new Label();
-            txtBoxIngredienteSelecionadoValorCompra = new TextBox();
-            label7 = new Label();
-            txtBoxIngredienteSelecionadoUnidadeCompra = new TextBox();
-            label6 = new Label();
-            txtBoxIngredienteSelecionadoQuantidadeCompra = new TextBox();
-            label5 = new Label();
-            txtBoxIngredienteSelecionadoValorUnidade = new TextBox();
-            label4 = new Label();
-            txtBoxIngredienteSelecionadoUnidadeEstoque = new TextBox();
+            lblQuantidadeIngredientes = new Label();
+            txtBoxQuantidadeIngredientes = new TextBox();
             btnDeletarIngrediente = new Button();
-            lblIngredienteSelecionadoNome = new Label();
-            lblIngredienteSelecionadoQuantidadeEstoque = new Label();
+            lblNomeReceita = new Label();
+            lblValorTotalReceita = new Label();
             btnSalvarIngrediente = new Button();
-            txtBoxIngredienteSelecionadoNome = new TextBox();
-            txtBoxIngredienteSelecionadoQuantidadeEstoque = new TextBox();
+            txtBoxNomeReceita = new TextBox();
+            txtBoxValorTotalReceita = new TextBox();
             label3 = new Label();
+            clnIngredientes = new ColumnHeader();
+            lblIngredientesReceita = new Label();
+            txtBoxIngredientesReceita = new TextBox();
             gBoxEstoque.SuspendLayout();
             gBoxCriacaoEdicao.SuspendLayout();
             panel1.SuspendLayout();
@@ -146,7 +136,7 @@
             // 
             // lvEstoque
             // 
-            lvEstoque.Columns.AddRange(new ColumnHeader[] { clnId, clnNome, clnQuantidadeEstoque, clnUnidadeEstoque, clnValorUnidade, clnQuantidadeCompra, clnUnidadeCompra, clnValorCompra });
+            lvEstoque.Columns.AddRange(new ColumnHeader[] { clnId, clnNomeReceita, clnValorReceita, clnIngredientes });
             lvEstoque.FullRowSelect = true;
             lvEstoque.GridLines = true;
             lvEstoque.Location = new Point(6, 115);
@@ -161,42 +151,15 @@
             clnId.Text = "Id";
             clnId.Width = 40;
             // 
-            // clnNome
+            // clnNomeReceita
             // 
-            clnNome.Text = "Nome";
-            clnNome.Width = 120;
+            clnNomeReceita.Text = "Nome";
+            clnNomeReceita.Width = 120;
             // 
-            // clnQuantidadeEstoque
+            // clnValorReceita
             // 
-            clnQuantidadeEstoque.Text = "Quantidade em estoque";
-            clnQuantidadeEstoque.TextAlign = HorizontalAlignment.Right;
-            clnQuantidadeEstoque.Width = 140;
-            // 
-            // clnUnidadeEstoque
-            // 
-            clnUnidadeEstoque.Text = "Unidade do estoque";
-            clnUnidadeEstoque.Width = 120;
-            // 
-            // clnValorUnidade
-            // 
-            clnValorUnidade.Text = "Valor por unidade";
-            clnValorUnidade.Width = 110;
-            // 
-            // clnQuantidadeCompra
-            // 
-            clnQuantidadeCompra.Text = "Quantidade por compra";
-            clnQuantidadeCompra.TextAlign = HorizontalAlignment.Right;
-            clnQuantidadeCompra.Width = 140;
-            // 
-            // clnUnidadeCompra
-            // 
-            clnUnidadeCompra.Text = "Unidade de compra";
-            clnUnidadeCompra.Width = 120;
-            // 
-            // clnValorCompra
-            // 
-            clnValorCompra.Text = "Valor por Compra";
-            clnValorCompra.Width = 110;
+            clnValorReceita.Text = "Valor total da receita";
+            clnValorReceita.Width = 200;
             // 
             // label2
             // 
@@ -249,23 +212,17 @@
             // 
             panel1.Anchor = AnchorStyles.Top;
             panel1.AutoScroll = true;
+            panel1.Controls.Add(lblIngredientesReceita);
+            panel1.Controls.Add(txtBoxIngredientesReceita);
             panel1.Controls.Add(btnAdicionarIngrediente);
-            panel1.Controls.Add(label8);
-            panel1.Controls.Add(txtBoxIngredienteSelecionadoValorCompra);
-            panel1.Controls.Add(label7);
-            panel1.Controls.Add(txtBoxIngredienteSelecionadoUnidadeCompra);
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(txtBoxIngredienteSelecionadoQuantidadeCompra);
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(txtBoxIngredienteSelecionadoValorUnidade);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(txtBoxIngredienteSelecionadoUnidadeEstoque);
+            panel1.Controls.Add(lblQuantidadeIngredientes);
+            panel1.Controls.Add(txtBoxQuantidadeIngredientes);
             panel1.Controls.Add(btnDeletarIngrediente);
-            panel1.Controls.Add(lblIngredienteSelecionadoNome);
-            panel1.Controls.Add(lblIngredienteSelecionadoQuantidadeEstoque);
+            panel1.Controls.Add(lblNomeReceita);
+            panel1.Controls.Add(lblValorTotalReceita);
             panel1.Controls.Add(btnSalvarIngrediente);
-            panel1.Controls.Add(txtBoxIngredienteSelecionadoNome);
-            panel1.Controls.Add(txtBoxIngredienteSelecionadoQuantidadeEstoque);
+            panel1.Controls.Add(txtBoxNomeReceita);
+            panel1.Controls.Add(txtBoxValorTotalReceita);
             panel1.Location = new Point(6, 61);
             panel1.Name = "panel1";
             panel1.Size = new Size(283, 481);
@@ -275,169 +232,95 @@
             // 
             btnAdicionarIngrediente.BackColor = Color.Yellow;
             btnAdicionarIngrediente.BackgroundImageLayout = ImageLayout.Center;
-            btnAdicionarIngrediente.Location = new Point(75, 561);
+            btnAdicionarIngrediente.Location = new Point(92, 449);
             btnAdicionarIngrediente.Name = "btnAdicionarIngrediente";
             btnAdicionarIngrediente.Size = new Size(91, 29);
             btnAdicionarIngrediente.TabIndex = 17;
             btnAdicionarIngrediente.Text = "Adicionar";
             btnAdicionarIngrediente.UseVisualStyleBackColor = false;
+            btnAdicionarIngrediente.Click += AdicionarReceita;
             // 
-            // label8
+            // lblQuantidadeIngredientes
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.ForeColor = SystemColors.ButtonFace;
-            label8.Location = new Point(6, 484);
-            label8.Name = "label8";
-            label8.Size = new Size(151, 25);
-            label8.TabIndex = 16;
-            label8.Text = "Valor da compra";
+            lblQuantidadeIngredientes.AutoSize = true;
+            lblQuantidadeIngredientes.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblQuantidadeIngredientes.ForeColor = SystemColors.ButtonFace;
+            lblQuantidadeIngredientes.Location = new Point(6, 161);
+            lblQuantidadeIngredientes.Name = "lblQuantidadeIngredientes";
+            lblQuantidadeIngredientes.Size = new Size(221, 25);
+            lblQuantidadeIngredientes.TabIndex = 8;
+            lblQuantidadeIngredientes.Text = "Quantidade ingredientes";
             // 
-            // txtBoxIngredienteSelecionadoValorCompra
+            // txtBoxQuantidadeIngredientes
             // 
-            txtBoxIngredienteSelecionadoValorCompra.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            txtBoxIngredienteSelecionadoValorCompra.Location = new Point(6, 512);
-            txtBoxIngredienteSelecionadoValorCompra.Name = "txtBoxIngredienteSelecionadoValorCompra";
-            txtBoxIngredienteSelecionadoValorCompra.Size = new Size(257, 39);
-            txtBoxIngredienteSelecionadoValorCompra.TabIndex = 15;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.ForeColor = SystemColors.ButtonFace;
-            label7.Location = new Point(6, 406);
-            label7.Name = "label7";
-            label7.Size = new Size(186, 25);
-            label7.TabIndex = 14;
-            label7.Text = "Unidade por compra";
-            // 
-            // txtBoxIngredienteSelecionadoUnidadeCompra
-            // 
-            txtBoxIngredienteSelecionadoUnidadeCompra.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            txtBoxIngredienteSelecionadoUnidadeCompra.Location = new Point(6, 434);
-            txtBoxIngredienteSelecionadoUnidadeCompra.Name = "txtBoxIngredienteSelecionadoUnidadeCompra";
-            txtBoxIngredienteSelecionadoUnidadeCompra.Size = new Size(257, 39);
-            txtBoxIngredienteSelecionadoUnidadeCompra.TabIndex = 13;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.ForeColor = SystemColors.ButtonFace;
-            label6.Location = new Point(6, 325);
-            label6.Name = "label6";
-            label6.Size = new Size(214, 25);
-            label6.TabIndex = 12;
-            label6.Text = "Quantidade por compra";
-            // 
-            // txtBoxIngredienteSelecionadoQuantidadeCompra
-            // 
-            txtBoxIngredienteSelecionadoQuantidadeCompra.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            txtBoxIngredienteSelecionadoQuantidadeCompra.Location = new Point(6, 353);
-            txtBoxIngredienteSelecionadoQuantidadeCompra.Name = "txtBoxIngredienteSelecionadoQuantidadeCompra";
-            txtBoxIngredienteSelecionadoQuantidadeCompra.Size = new Size(257, 39);
-            txtBoxIngredienteSelecionadoQuantidadeCompra.TabIndex = 11;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.ForeColor = SystemColors.ButtonFace;
-            label5.Location = new Point(6, 244);
-            label5.Name = "label5";
-            label5.Size = new Size(164, 25);
-            label5.TabIndex = 10;
-            label5.Text = "Valor por unidade";
-            // 
-            // txtBoxIngredienteSelecionadoValorUnidade
-            // 
-            txtBoxIngredienteSelecionadoValorUnidade.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            txtBoxIngredienteSelecionadoValorUnidade.Location = new Point(6, 272);
-            txtBoxIngredienteSelecionadoValorUnidade.Name = "txtBoxIngredienteSelecionadoValorUnidade";
-            txtBoxIngredienteSelecionadoValorUnidade.ReadOnly = true;
-            txtBoxIngredienteSelecionadoValorUnidade.Size = new Size(257, 39);
-            txtBoxIngredienteSelecionadoValorUnidade.TabIndex = 9;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.ForeColor = SystemColors.ButtonFace;
-            label4.Location = new Point(6, 161);
-            label4.Name = "label4";
-            label4.Size = new Size(186, 25);
-            label4.TabIndex = 8;
-            label4.Text = "Unidade em estoque";
-            // 
-            // txtBoxIngredienteSelecionadoUnidadeEstoque
-            // 
-            txtBoxIngredienteSelecionadoUnidadeEstoque.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            txtBoxIngredienteSelecionadoUnidadeEstoque.Location = new Point(6, 189);
-            txtBoxIngredienteSelecionadoUnidadeEstoque.Name = "txtBoxIngredienteSelecionadoUnidadeEstoque";
-            txtBoxIngredienteSelecionadoUnidadeEstoque.Size = new Size(257, 39);
-            txtBoxIngredienteSelecionadoUnidadeEstoque.TabIndex = 7;
+            txtBoxQuantidadeIngredientes.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            txtBoxQuantidadeIngredientes.Location = new Point(6, 189);
+            txtBoxQuantidadeIngredientes.Name = "txtBoxQuantidadeIngredientes";
+            txtBoxQuantidadeIngredientes.Size = new Size(257, 39);
+            txtBoxQuantidadeIngredientes.TabIndex = 7;
             // 
             // btnDeletarIngrediente
             // 
             btnDeletarIngrediente.BackColor = Color.Maroon;
             btnDeletarIngrediente.BackgroundImageLayout = ImageLayout.Center;
             btnDeletarIngrediente.ForeColor = Color.White;
-            btnDeletarIngrediente.Location = new Point(6, 561);
+            btnDeletarIngrediente.Location = new Point(8, 449);
             btnDeletarIngrediente.Name = "btnDeletarIngrediente";
-            btnDeletarIngrediente.Size = new Size(62, 29);
+            btnDeletarIngrediente.Size = new Size(78, 29);
             btnDeletarIngrediente.TabIndex = 6;
             btnDeletarIngrediente.Text = "Deletar";
             btnDeletarIngrediente.UseVisualStyleBackColor = false;
+            btnDeletarIngrediente.Click += DeletarReceita;
             // 
-            // lblIngredienteSelecionadoNome
+            // lblNomeReceita
             // 
-            lblIngredienteSelecionadoNome.AutoSize = true;
-            lblIngredienteSelecionadoNome.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblIngredienteSelecionadoNome.ForeColor = SystemColors.ButtonFace;
-            lblIngredienteSelecionadoNome.Location = new Point(3, 0);
-            lblIngredienteSelecionadoNome.Name = "lblIngredienteSelecionadoNome";
-            lblIngredienteSelecionadoNome.Size = new Size(67, 25);
-            lblIngredienteSelecionadoNome.TabIndex = 2;
-            lblIngredienteSelecionadoNome.Text = "Nome:";
+            lblNomeReceita.AutoSize = true;
+            lblNomeReceita.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNomeReceita.ForeColor = SystemColors.ButtonFace;
+            lblNomeReceita.Location = new Point(3, 0);
+            lblNomeReceita.Name = "lblNomeReceita";
+            lblNomeReceita.Size = new Size(67, 25);
+            lblNomeReceita.TabIndex = 2;
+            lblNomeReceita.Text = "Nome:";
             // 
-            // lblIngredienteSelecionadoQuantidadeEstoque
+            // lblValorTotalReceita
             // 
-            lblIngredienteSelecionadoQuantidadeEstoque.AutoSize = true;
-            lblIngredienteSelecionadoQuantidadeEstoque.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblIngredienteSelecionadoQuantidadeEstoque.ForeColor = SystemColors.ButtonFace;
-            lblIngredienteSelecionadoQuantidadeEstoque.Location = new Point(6, 81);
-            lblIngredienteSelecionadoQuantidadeEstoque.Name = "lblIngredienteSelecionadoQuantidadeEstoque";
-            lblIngredienteSelecionadoQuantidadeEstoque.Size = new Size(214, 25);
-            lblIngredienteSelecionadoQuantidadeEstoque.TabIndex = 4;
-            lblIngredienteSelecionadoQuantidadeEstoque.Text = "Quantidade em estoque";
+            lblValorTotalReceita.AutoSize = true;
+            lblValorTotalReceita.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblValorTotalReceita.ForeColor = SystemColors.ButtonFace;
+            lblValorTotalReceita.Location = new Point(6, 81);
+            lblValorTotalReceita.Name = "lblValorTotalReceita";
+            lblValorTotalReceita.Size = new Size(187, 25);
+            lblValorTotalReceita.TabIndex = 4;
+            lblValorTotalReceita.Text = "Valor total na receita";
             // 
             // btnSalvarIngrediente
             // 
             btnSalvarIngrediente.BackColor = Color.Green;
             btnSalvarIngrediente.BackgroundImageLayout = ImageLayout.Center;
-            btnSalvarIngrediente.Location = new Point(172, 561);
+            btnSalvarIngrediente.Location = new Point(189, 449);
             btnSalvarIngrediente.Name = "btnSalvarIngrediente";
             btnSalvarIngrediente.Size = new Size(91, 29);
             btnSalvarIngrediente.TabIndex = 5;
             btnSalvarIngrediente.Text = "Salvar";
             btnSalvarIngrediente.UseVisualStyleBackColor = false;
+            btnSalvarIngrediente.Click += SalvarReceita;
             // 
-            // txtBoxIngredienteSelecionadoNome
+            // txtBoxNomeReceita
             // 
-            txtBoxIngredienteSelecionadoNome.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            txtBoxIngredienteSelecionadoNome.Location = new Point(6, 28);
-            txtBoxIngredienteSelecionadoNome.Name = "txtBoxIngredienteSelecionadoNome";
-            txtBoxIngredienteSelecionadoNome.Size = new Size(257, 39);
-            txtBoxIngredienteSelecionadoNome.TabIndex = 0;
+            txtBoxNomeReceita.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            txtBoxNomeReceita.Location = new Point(6, 28);
+            txtBoxNomeReceita.Name = "txtBoxNomeReceita";
+            txtBoxNomeReceita.Size = new Size(257, 39);
+            txtBoxNomeReceita.TabIndex = 0;
             // 
-            // txtBoxIngredienteSelecionadoQuantidadeEstoque
+            // txtBoxValorTotalReceita
             // 
-            txtBoxIngredienteSelecionadoQuantidadeEstoque.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            txtBoxIngredienteSelecionadoQuantidadeEstoque.Location = new Point(6, 109);
-            txtBoxIngredienteSelecionadoQuantidadeEstoque.Name = "txtBoxIngredienteSelecionadoQuantidadeEstoque";
-            txtBoxIngredienteSelecionadoQuantidadeEstoque.Size = new Size(257, 39);
-            txtBoxIngredienteSelecionadoQuantidadeEstoque.TabIndex = 3;
+            txtBoxValorTotalReceita.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            txtBoxValorTotalReceita.Location = new Point(6, 109);
+            txtBoxValorTotalReceita.Name = "txtBoxValorTotalReceita";
+            txtBoxValorTotalReceita.Size = new Size(257, 39);
+            txtBoxValorTotalReceita.TabIndex = 3;
             // 
             // label3
             // 
@@ -450,6 +333,30 @@
             label3.Size = new Size(137, 32);
             label3.TabIndex = 1;
             label3.Text = "Ingrediente";
+            // 
+            // clnIngredientes
+            // 
+            clnIngredientes.Text = "Ingredientes na receita";
+            clnIngredientes.Width = 300;
+            // 
+            // lblIngredientesReceita
+            // 
+            lblIngredientesReceita.AutoSize = true;
+            lblIngredientesReceita.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblIngredientesReceita.ForeColor = SystemColors.ButtonFace;
+            lblIngredientesReceita.Location = new Point(8, 241);
+            lblIngredientesReceita.Name = "lblIngredientesReceita";
+            lblIngredientesReceita.Size = new Size(205, 25);
+            lblIngredientesReceita.TabIndex = 19;
+            lblIngredientesReceita.Text = "Ingredientes na receita";
+            // 
+            // txtBoxIngredientesReceita
+            // 
+            txtBoxIngredientesReceita.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            txtBoxIngredientesReceita.Location = new Point(8, 269);
+            txtBoxIngredientesReceita.Name = "txtBoxIngredientesReceita";
+            txtBoxIngredientesReceita.Size = new Size(257, 39);
+            txtBoxIngredientesReceita.TabIndex = 18;
             // 
             // ListaReceitas
             // 
@@ -484,13 +391,8 @@
         private Button btnPesquisa;
         private ListView lvEstoque;
         private ColumnHeader clnId;
-        private ColumnHeader clnNome;
-        private ColumnHeader clnQuantidadeEstoque;
-        private ColumnHeader clnUnidadeEstoque;
-        private ColumnHeader clnValorUnidade;
-        private ColumnHeader clnQuantidadeCompra;
-        private ColumnHeader clnUnidadeCompra;
-        private ColumnHeader clnValorCompra;
+        private ColumnHeader clnNomeReceita;
+        private ColumnHeader clnValorReceita;
         private Label label2;
         private Label lbConectado;
         private Label label1;
@@ -498,22 +400,17 @@
         private GroupBox gBoxCriacaoEdicao;
         private Panel panel1;
         private Button btnAdicionarIngrediente;
-        private Label label8;
-        private TextBox txtBoxIngredienteSelecionadoValorCompra;
-        private Label label7;
-        private TextBox txtBoxIngredienteSelecionadoUnidadeCompra;
-        private Label label6;
-        private TextBox txtBoxIngredienteSelecionadoQuantidadeCompra;
-        private Label label5;
-        private TextBox txtBoxIngredienteSelecionadoValorUnidade;
-        private Label label4;
-        private TextBox txtBoxIngredienteSelecionadoUnidadeEstoque;
+        private Label lblQuantidadeIngredientes;
+        private TextBox txtBoxQuantidadeIngredientes;
         private Button btnDeletarIngrediente;
-        private Label lblIngredienteSelecionadoNome;
-        private Label lblIngredienteSelecionadoQuantidadeEstoque;
+        private Label lblNomeReceita;
+        private Label lblValorTotalReceita;
         private Button btnSalvarIngrediente;
-        private TextBox txtBoxIngredienteSelecionadoNome;
-        private TextBox txtBoxIngredienteSelecionadoQuantidadeEstoque;
+        private TextBox txtBoxNomeReceita;
+        private TextBox txtBoxValorTotalReceita;
         private Label label3;
+        private ColumnHeader clnIngredientes;
+        private Label lblIngredientesReceita;
+        private TextBox txtBoxIngredientesReceita;
     }
 }

@@ -1,6 +1,6 @@
 using CannaCandiesCWB.Entidades;
 using CannaCandiesCWB.Paginas.EstoqueIngredientes;
-using CannaCandiesCWB.Paginas.Receitas;
+using CannaCandiesCWB.Paginas.ListaReceitas;
 using CannaCandiesCWB.Services;
 using System.Net.Http.Headers;
 
